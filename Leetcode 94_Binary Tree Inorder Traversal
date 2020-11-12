@@ -1,0 +1,16 @@
+Here, simply inorder is applied recursively
+
+ArrayList<Integer> ans = new ArrayList<>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if(root == null) return new ArrayList<Integer>();
+        
+        if(root.left != null)
+            inorderTraversal(root.left);
+        
+        ans.add(root.val);
+        
+        if(root.right != null)
+            inorderTraversal(root.right);
+        
+        return ans;
+    }
