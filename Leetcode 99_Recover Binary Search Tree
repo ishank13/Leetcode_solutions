@@ -1,0 +1,39 @@
+Here approach is to apply inorder on Binary search tree which gives tree in sorted order. Hence, compare two nodes then swap them.
+space - O(1) 
+time - O(n)
+
+	TreeNode a = null;
+    TreeNode b = null;
+    TreeNode prev = null;
+    
+    public void recoverTree_(TreeNode root){
+        if(root == null)
+            return;
+        
+        if(root.left != null)
+            recoverTree_(root.left);
+        
+        if(prev != null){
+            if(prev.val > root.val){  //compare two nodes
+                if(b != null){  // check for 2nd mistake
+                    b = root;  // then only update b node
+                    return;
+                }
+
+                a = prev;
+                b = root;
+            }    
+        }
+        prev = root;
+        
+        if(root.right != null)
+            recoverTree_(root.right);
+    }
+    
+    public void recoverTree(TreeNode root) {
+        recoverTree_(root);
+        
+        int temp = a.val; // swap the values
+        a.val = b.val;
+        b.val = temp;
+    }
