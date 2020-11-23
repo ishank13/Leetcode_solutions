@@ -1,0 +1,32 @@
+public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null) return head; 
+        
+        ListNode dummy = new ListNode(-1);
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode tail = head;
+        
+        int count = 1;
+        while(tail.next != null){
+            tail = tail.next;    //put the pointer to the tail of the list
+            count++;             // and simultaneously count the total no. of nodes 
+        }
+        
+        k = k % count;   
+        if(k == 0 || k == count) return head;  // list will remain as it is therefore simply return the head  
+
+        while(k-- > 0)
+            fast = fast.next;  // ceate the difference of k between 2 pointers
+        
+        while(fast != tail){  // now find that node which will become head after rotation
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        dummy.next = slow.next; // now linking the tail with rest of list 
+        tail.next = head;
+        slow.next = null;
+        
+        return dummy.next;  
+    }
