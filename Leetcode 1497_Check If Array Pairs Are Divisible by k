@@ -1,0 +1,33 @@
+Here, approach is simple, Sum of pair of two numbers is divisible by k only if sum of their modulus with k is k.
+i.e. a,b can be paired if let's say (a % k) = x then (b % k) should be k-x
+therefore, x + (k-x) = k;
+So take a frequency array of k size and take the modulus of each array element with k and increase the frequency of respective index i.e. (arr[i]%k).
+And then run another loop over frequency array and just check 1. if 0th index has an even value and 2. if left value is equal to right value i.e. (1 <=> arr.length-1) and so on.
+If yes then we can pair them hence true, otherwise false.
+But it fails with negative numbers, since taking their mod with k gives -ve number and there is no -ve index present in freq array.
+Hence for -ve numbers, add k to them to bring them in range.
+
+public boolean canArrange(int[] nums, int k) {
+        int[] farr = new int[k];
+        
+        for(int i=0; i<nums.length; i++){
+            int mod = nums[i] % k;
+            if(nums[i] < 0){  // for -ve numbers -> increase the fequency of index at add k after taking mod 
+                if(mod == 0) farr[mod]++;
+                else farr[mod+k]++;
+            }else
+                farr[mod]++;
+        }
+        
+        int left = 1, right = farr.length-1;
+        
+        if(farr[0] % 2 != 0) return false;
+        while(left <= right){
+            if(farr[left] != farr[right])
+                return false;
+            left++;
+            right--;
+        }
+        
+        return true;
+    }
