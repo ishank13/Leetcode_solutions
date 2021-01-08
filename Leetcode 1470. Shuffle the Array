@@ -1,0 +1,20 @@
+//Here, we took 2 pointers one at index 0 and another at mid (i.e. n) and then first we'll put value of 1st pointer and then 2nd pionter and increase the pinters by 1.
+
+public int[] shuffle(int[] nums, int n) {
+        
+        int[] ans = new int[nums.length];
+        
+        int i=0;
+        int j=0;
+        
+        while(i < nums.length && n < nums.length){
+            
+            ans[j++] = nums[i];
+            ans[j++] = nums[n];
+            
+            i++;
+            n++;
+        }
+        
+        return ans;
+    }
