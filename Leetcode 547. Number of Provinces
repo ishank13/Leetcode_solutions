@@ -1,0 +1,35 @@
+// Approach -> applying DFS (get connected component approach)
+
+public int findCircleNum(int[][] M) {
+        int n = M.length;
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        for(int i=0; i<n; i++)
+            graph[i] = new ArrayList<Integer>();
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(M[i][j] == 1){
+                    graph[i].add(j);
+                    graph[j].add(i);
+                }
+            }
+        }
+        
+        boolean[] vis = new boolean[n];
+        int count = 0;
+        for(int i=0; i<n; i++){
+            if(!vis[i]){
+                GCC(i, graph, vis);
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public void GCC(int src, ArrayList<Integer>[] graph, boolean[] vis){
+        vis[src] = true;
+        for(int ele : graph[src]){
+            if(!vis[ele])
+                GCC(ele, graph, vis);
+        }
+    }
