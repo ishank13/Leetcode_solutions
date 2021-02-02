@@ -1,0 +1,22 @@
+// Here approach is simple just call DFS and then check is node is in range or not.
+// If it is greater than higher value then simply return left subtree and vice versa.
+    
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        return trimBST_(root, low, high);
+    }
+    
+    public TreeNode trimBST_(TreeNode root, int low, int high){
+        if(root == null) return null;
+        
+        TreeNode node = new TreeNode(root.val);
+        
+        if(root.val >= low){
+            node.left = trimBST_(root.left, low, high);
+            if(node.val > high) return node.left;
+        }
+        if(root.val <= high){
+            node.right = trimBST_(root.right, low, high);
+            if(node.val < low) return node.right;
+        }
+        return node;
+    }
