@@ -1,0 +1,31 @@
+//Approach -> Simple BFS (Level order)
+
+public Node connect(Node root) {
+        if(root == null) return null;
+        
+        Queue<Node> que = new LinkedList<>();
+        que.add(root);
+        
+        while(que.size() != 0){
+            int size = que.size();
+            Node pnode = null;
+            while(size-- > 0){
+                Node rvtx = que.peek();
+                que.poll();
+                
+                if(pnode!= null)
+                    pnode.next = rvtx;
+                
+                if(rvtx.left != null)
+                    que.add(rvtx.left);
+                
+                if(rvtx.right != null)
+                    que.add(rvtx.right);
+                
+                pnode = rvtx;
+            }
+            pnode.next = null;
+        }
+        
+        return root;
+    }
