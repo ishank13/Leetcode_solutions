@@ -1,0 +1,26 @@
+//Approach -> first, store the position of character and then while traversing over string take minimum of difference with all positions
+
+public int[] shortestToChar(String s, char c) {
+        
+        ArrayList<Integer> arr = new ArrayList<>();
+        
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            if(ch == c) arr.add(i);
+        }
+        
+        int[] ans = new int[s.length()];
+        
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            if(ch == c) ans[i] = 0;
+            else{
+                int x = s.length();
+                for(int j=0; j<arr.size(); j++){
+                    x = Math.min(x, Math.abs(arr.get(j)-i));
+                }
+                ans[i] = x;
+            }
+        }
+        return ans;
+    }
