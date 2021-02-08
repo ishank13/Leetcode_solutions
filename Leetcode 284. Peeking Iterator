@@ -1,32 +1,36 @@
+// Approach -> just take 1 variable to support the next method
+
 class PeekingIterator implements Iterator<Integer> {
-    // Peek element
-    Integer nextEl = null;
-    Iterator<Integer> it = null;
-    public PeekingIterator(Iterator<Integer> iterator) {
-        // initialize any member here.
-        this.it = iterator;
-        nextEl = it.next();
-    }
-
+    
+    Integer nextEle = null;
+    Iterator<Integer> ar= null;
+    
+	public PeekingIterator(Iterator<Integer> iterator) {
+	    // initialize any member here.
+	    this.ar = iterator;
+        nextEle = ar.next();
+	}
+	
     // Returns the next element in the iteration without advancing the iterator.
-    public Integer peek() {
-        return nextEl;
-    }
-
-    // hasNext() and next() should behave the same as in the Iterator interface.
-    // Override them if needed.
-    @Override
-    public Integer next() {
-        Integer valueToReturn = nextEl;
-        if(it.hasNext()){
-            this.nextEl = it.next();
-        } else{
-            this.nextEl = null;
+	public Integer peek() {
+        return this.nextEle;
+	}
+	
+	// hasNext() and next() should behave the same as in the Iterator interface.
+	// Override them if needed.
+	@Override
+	public Integer next() {
+	    Integer nextVal = this.nextEle;
+        if(ar.hasNext()){
+            this.nextEle = ar.next();
+        }else{
+            this.nextEle = null;
         }
-        return valueToReturn;
-    }
-
-    @Override
-    public boolean hasNext() {
-        return nextEl!=null;
-    }
+        return nextVal;
+	}
+	
+	@Override
+	public boolean hasNext() {
+	    return this.nextEle != null;
+	}
+}
