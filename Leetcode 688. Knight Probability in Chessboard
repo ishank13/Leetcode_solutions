@@ -1,0 +1,38 @@
+//Approach -> Simple just take 2 dp's for current and next position and for every move(k) 1/8 is multiplied.
+// And at last take sum of all to calculate total probability of board
+  
+  int[][] dir = {{-2,-1}, {-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}};
+    public double knightProbability(int N, int K, int r, int c) {
+        
+        double[][] currPos = new double[N][N];
+        double[][] nextPos = new double[N][N];
+        
+        currPos[r][c] = 1; // k=0
+        
+        for(int k=1; k<=K; k++){
+            for(int i=0; i<N; i++){
+                for(int j=0; j<N; j++){
+                    if(currPos[i][j] > 0){
+                        for(int d=0; d<dir.length; d++){
+                            int x = i + dir[d][0];
+                            int y = j + dir[d][1];
+
+                            if(x >=0 && y >=0 && x < N && y < N ){
+                                nextPos[x][y] += currPos[i][j] * 1/8;
+                            }
+                        }
+                    }
+                }
+            }
+            currPos = nextPos;
+            nextPos = new double[N][N];
+        }
+    
+        double sum=0;
+        for(int i=0; i<N; i++){
+            for(int j=0; j<N; j++){
+                sum += currPos[i][j];
+            }
+        }
+        return sum;
+    }
