@@ -1,0 +1,67 @@
+// Approach -> just check if it is +ve then call forward and jumps only on +ve ones and ignore -ve numbers and vice versa for -ve numbers
+
+public boolean circularArrayLoop(int[] nums) {
+        if(nums.length < 2) return false;
+        if(nums.length == 2 && ((nums[0]<0 && nums[1]>0) || (nums[0]>0 && nums[1]<0))) return false;
+        
+        boolean ans = false;
+        for(int i=0; i<nums.length; i++){
+            if(nums[i] > 0){
+                ans = ans || forward(nums, i);
+            } 
+            else if(nums[i] < 0){
+                ans = ans || reverse(nums, i);
+            } 
+        }
+        return ans;
+    }
+    
+    public static boolean reverse(int[] arr, int idx){
+        int Idx = idx;
+        boolean flag = false;
+        int tne = 0;
+        for(int i=0; i<arr.length*2; i++){
+            if(arr[idx] < 0){
+                idx = (arr[idx]%arr.length + idx %arr.length + arr.length) %arr.length;
+                tne++;
+            }
+            else{
+                flag = false;
+                break;
+            }
+            
+            if(idx == Idx){
+                if(tne > 1)
+                    flag = true;
+                else
+                    flag = false;
+                break;
+            } 
+        }
+        return flag;
+    }
+    
+    public static boolean forward(int[] arr, int idx){
+        int Idx = idx;
+        boolean flag = false;
+        int tne = 0;
+        for(int i=0; i<arr.length*2; i++){
+            if(arr[idx] > 0){
+                idx = (arr[idx]%arr.length + idx %arr.length + arr.length) %arr.length;
+                tne++;
+            }
+            else{
+                flag = false;
+                break;
+            }
+            
+            if(idx == Idx){
+                if(tne > 1)
+                    flag = true;
+                else
+                    flag = false;
+                break;
+            } 
+        }
+        return flag;
+    }
