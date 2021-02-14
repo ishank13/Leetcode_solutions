@@ -1,0 +1,33 @@
+public boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int[] vis = new int[n];
+        Arrays.fill(vis, -1);
+        
+        for(int i=0; i<n; i++){
+            if(vis[i] == -1){
+                Queue<int[]> que = new LinkedList<>();
+                que.add(new int[]{i,0});
+                
+                while(que.size() != 0){
+                    int size = que.size();
+                    while(size-- > 0){
+                        int[] rvtx = que.peek();
+                        que.poll();
+
+                        if(vis[rvtx[0]] != -1){
+                            if(rvtx[1] != vis[rvtx[0]])
+                                return false;
+                            continue;
+                        }
+
+                        vis[rvtx[0]] = rvtx[1];
+                        for(int ele : graph[rvtx[0]]){
+                            if(vis[ele] == -1)
+                                que.add(new int[]{ele, (rvtx[1]+1)%2});
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
