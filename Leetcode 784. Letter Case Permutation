@@ -1,0 +1,39 @@
+//Aproach-> if character is numeric then just append it after all possible strings 
+// else toggle the upper case-lower case and append them after all possible strings
+
+
+  public List<String> letterCasePermutation(String S) {
+        
+        int n = S.length();
+        List<String>[] dp = new ArrayList[n+1];
+        
+        for(int i=1; i<=n; i++)
+            dp[i] = new ArrayList<String>();
+        
+        ArrayList<String> arr = new ArrayList<>();
+        arr.add("");
+        dp[0] = arr;
+        
+        for(int i=1; i<=n; i++){
+            char ch = S.charAt(i-1);
+            for(int j=0; j<dp[i-1].size(); j++){
+                String str = dp[i-1].get(j) + ch;
+                dp[i].add(str);
+            }
+            
+            if(ch > 57){
+                char c = ch;
+                if(ch >= 65 && ch <= 90)
+                    c = (char)(ch - 'A'+ 'a');
+                else
+                    c = (char)(ch - 'a' + 'A');
+    
+                for(int j=0; j<dp[i-1].size(); j++){
+                    String str = dp[i-1].get(j) + c;
+                    dp[i].add(str);
+                }
+            }
+        }
+        
+        return dp[n];
+    }
