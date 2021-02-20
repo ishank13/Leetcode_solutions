@@ -1,0 +1,50 @@
+// Approach-> simply maintain an array and update this array by adding integer value of roman numeral in previous index of array.
+public int romanToInt(String s) {
+        int n = s.length();
+        
+        int[] dp = new int[n];
+        
+        for(int i=0; i<n; i++){
+            char ch = s.charAt(i);
+            if(ch == 'I'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 1;
+            }
+            else if(ch == 'V'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 5;
+                if(i>0 && s.charAt(i-1) == 'I'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 4;
+                }
+            }
+            else if(ch == 'X'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 10;
+                if(i>0 && s.charAt(i-1) == 'I'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 9;
+                }
+            }
+            else if(ch == 'L'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 50;
+                if(i>0 && s.charAt(i-1) == 'X'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 40;
+                }
+            }
+            else if(ch == 'C'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 100;
+                if(i>0 && s.charAt(i-1) == 'X'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 90;
+                }
+            }
+            else if(ch == 'D'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 500;
+                if(i>0 && s.charAt(i-1) == 'C'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 400;
+                }
+            }
+            else if(ch == 'M'){
+                dp[i] = ((i-1>=0) ? dp[i-1]:0) + 1000;
+                if(i>0 && s.charAt(i-1) == 'C'){
+                    dp[i] = ((i-2>=0) ? dp[i-2]:0) + 900;
+                }
+            }
+        }
+        return dp[n-1];
+    }
