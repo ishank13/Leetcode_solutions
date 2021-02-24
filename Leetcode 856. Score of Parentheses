@@ -1,0 +1,38 @@
+    // 0 -> '('
+    // 1 -> ')'
+    // -1 -> '#'
+
+    public int scoreOfParentheses(String S) {
+        
+        int n = S.length();
+        
+        Stack<int[]> st = new Stack<>();
+        int[] arr = new int[n];
+        
+        for(int i=0; i<n; i++){
+            char ch = S.charAt(i);
+            if(ch == ')'){
+                if(st.peek()[0] == -1){
+                    int sum=0;
+                    sum += arr[st.peek()[1]]*2;
+                    st.pop();st.pop();
+                    while(st.size() != 0 && st.peek()[0] == -1){
+                        sum += arr[st.peek()[1]];
+                        st.pop();
+                    }
+                    arr[i] = sum;
+                    // st.pop();
+                    st.push(new int[]{-1, i});
+                }else{
+                    arr[i] = 1 + (st.peek()[1] > 0 ? arr[st.peek()[1]-1] : 0);
+                    st.pop();
+                    if(st.size() > 0 && st.peek()[0] == -1) st.pop();
+                    st.push(new int[]{-1, i});
+                }
+                
+            }else{
+                st.push(new int[]{0, i});
+            }
+        }
+        return arr[n-1];
+    }
