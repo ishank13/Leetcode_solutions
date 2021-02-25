@@ -56,5 +56,5 @@ public int findUnsortedSubarray(int[] nums) {
             i--;
         }
         
-        return b == -1 ? 0 : b-a + 1;
+        return b-a + 1;
     }
