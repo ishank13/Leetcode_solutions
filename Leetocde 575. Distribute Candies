@@ -1,0 +1,29 @@
+  //method 1
+  public int distributeCandies(int[] candyType) {
+        int n = candyType.length;
+        
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int c : candyType){
+            map.put(c, map.getOrDefault(c,0)+1);
+        }
+        
+        int x = map.size();
+        
+        if(x < (n/2)) return x;
+        return n/2;
+  }
+        
+  //method 2
+  public int distributeCandies(int[] candyType) {
+         Arrays.sort(candyType);
+        
+         int count=1;
+         for(int i=1; i<n; i++){
+             if(i >= 0 && candyType[i] != candyType[i-1])
+                 count++;
+         }
+        
+         if(count < (n/2)) return count;
+         return n/2;
+  }
