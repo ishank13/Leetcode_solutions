@@ -1,0 +1,30 @@
+  public int[] findErrorNums(int[] nums) {
+        
+        int n = nums.length;
+        
+        boolean[] arr = new boolean[n];
+        
+        int missing = 0;
+        int repeat = 0;
+        
+        for(int i=0; i<n; i++){
+            int x = nums[i]-1;
+            if(arr[x]) repeat = nums[i];
+            arr[x] = true;
+         }
+        
+        for(int i=0; i<n; i++){
+            if(!arr[i]){
+                missing = i+1;
+                break;
+            }
+        }
+        
+        
+        int[] ans = new int[2];
+        
+        ans[0] = repeat;
+        ans[1] = missing;
+        
+        return ans;
+    }
