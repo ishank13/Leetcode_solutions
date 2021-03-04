@@ -1,0 +1,42 @@
+public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null)
+            return null;
+        
+        ListNode curr = headA;
+        while(curr.next != null){
+            curr = curr.next;
+        }
+        curr.next = headB;
+        
+        ListNode ans = detectCycle(headA);
+
+        curr.next = null;
+        
+        return ans;
+    }
+    
+    public ListNode detectCycle(ListNode head) {
+        if(head == null || head.next == null)
+            return null;
+        
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast)
+                break;
+        }
+        
+        if(fast != slow)
+            return null;
+        
+        slow = head;
+        while(slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        return slow;
+    }
