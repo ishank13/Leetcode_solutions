@@ -1,0 +1,30 @@
+//Approach -> applying level order(BFS)
+
+  public List<Double> averageOfLevels(TreeNode root) {
+        
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+        
+        ArrayList<Double> ans = new ArrayList<>();
+        
+        while(que.size() != 0){
+            int size = que.size();
+            int count=0;
+            double sum=0;
+            while(size-- > 0){
+                TreeNode rvtx = que.peek();
+                que.poll();
+                
+                count++;
+                sum += rvtx.val;
+                
+                if(rvtx.left != null)
+                    que.add(rvtx.left);
+                if(rvtx.right != null)
+                    que.add(rvtx.right);
+            }
+            ans.add(sum/count);
+        }
+        
+        return ans;
+    }
