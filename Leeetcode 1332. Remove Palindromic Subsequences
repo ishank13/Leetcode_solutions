@@ -1,0 +1,30 @@
+// Approach -> first check if string is palindrome then simply return 1 else
+// check if string contains only 1 character then return 1 and if not the return 2 (as string contains only 2 characters)
+  
+  public int removePalindromeSub(String s) {
+        if(s.length() == 0) return 0;
+        int n = s.length();
+        
+        int l=0;
+        int r=n-1;
+        while(l <= r){
+            if(s.charAt(l) != s.charAt(r))
+                break;
+            l++;
+            r--;
+        }
+        
+        if(l > r) return 1;
+        
+        boolean isBoth = false;
+        char ch = s.charAt(0);
+        for(int i=1; i<n; i++){
+            if(ch != s.charAt(i)){
+                isBoth = true;
+                break;
+            }
+        }
+        
+        if(isBoth) return 2;
+        else return 1;
+    }
