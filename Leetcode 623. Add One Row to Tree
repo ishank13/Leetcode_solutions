@@ -1,0 +1,36 @@
+//Approach -> apply DFS till dth row is achieved then create new nodes and append them
+
+public TreeNode addOneRow(TreeNode root, int v, int d) {
+        
+        if(d == 1){
+            TreeNode node = new TreeNode(v);
+            node.left = root;
+            return node;
+        }
+        
+        helper(root, 1, v, d);
+        return root;
+    }
+    
+    public void helper(TreeNode node, int x, int v, int d){
+        if(node == null) return;
+        
+        if(x == d-1){
+            TreeNode lsub = node.left;
+            TreeNode rsub = node.right;
+            
+            TreeNode l = new TreeNode(v);
+            TreeNode r = new TreeNode(v);
+            node.left = l;
+            node.right = r;
+            
+            l.left = lsub;
+            r.right = rsub;
+            
+            return;
+        }
+        
+        helper(node.left, x+1, v, d);
+        helper(node.right, x+1, v, d);
+        
+    }
