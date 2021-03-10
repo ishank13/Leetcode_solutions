@@ -1,0 +1,32 @@
+//Approach -> assume a number as median then just like number line, smaller number on left and greater number on right. Then add umbers to max min priority queue accordingly.
+// and maintain size of max pq 1 greater than size of min pq. At last return top of max pq.
+  
+  class MedianFinder {
+         
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b)->{
+            return b - a;
+        });
+        
+        public MedianFinder() {
+             
+        }
+        
+        public void addNum(int num) {
+            if( maxHeap.size() == 0 || num <= maxHeap.peek())  maxHeap.add(num);
+            else minHeap.add(num);
+
+            if(maxHeap.size() > minHeap.size() + 1){
+                minHeap.add(maxHeap.peek());
+                maxHeap.remove();
+            }else if(maxHeap.size() < minHeap.size()){
+                maxHeap.add(minHeap.peek());
+                minHeap.remove();
+            }  
+        }
+        
+        public double findMedian() {
+            if(maxHeap.size() == minHeap.size() && maxHeap.size() != 0) return (maxHeap.peek() + minHeap.peek()) / 2;
+            else if(maxHeap.size() != minHeap.size()) return maxHeap.peek();
+        }
+    }
