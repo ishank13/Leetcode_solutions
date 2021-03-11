@@ -1,0 +1,15 @@
+ public int coinChange(int[] coins, int amount) {
+        
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp, 1000000000);
+        
+        int Amount = amount;
+        dp[0] = 0;
+        for(int c : coins){
+            for(amount = c; amount<=Amount; amount++){
+                if(dp[amount-c]+1 < dp[amount])
+                    dp[amount] = dp[amount-c]+1;
+            }
+        }
+        
+        return dp[Amount] == 1000000000 ? -1: dp[Amount];
