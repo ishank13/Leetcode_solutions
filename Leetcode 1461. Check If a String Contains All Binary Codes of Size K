@@ -1,0 +1,26 @@
+public boolean hasAllCodes(String s, int k) {
+        
+        Set<String> set = new HashSet<>();
+        
+        int x = power(k);
+        
+        for(int i=k; i<=s.length(); i++){
+            String p = s.substring(i-k, i);
+            if(!set.contains(p)){
+                set.add(p);
+                x--;
+
+                if(x == 0)
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    public int power(int k){
+        int sum=1;
+        while(k-- > 0){
+            sum *= 2;
+        }
+        return sum;
+    }
