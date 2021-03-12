@@ -1,3 +1,6 @@
+//Approach -> check only for substrings with length == k and count of substrings should be 2^k (as string contains only 2 letters 0and1)
+// If both these conditions are met then only return true else return false
+
 public boolean hasAllCodes(String s, int k) {
         
         Set<String> set = new HashSet<>();
