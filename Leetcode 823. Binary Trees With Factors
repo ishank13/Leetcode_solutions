@@ -1,0 +1,35 @@
+//Approach -> make a dp array. dp[i] should store how many ways to make arr[i] element as root node.
+// for this find its child. Left child => if(arr[i] % arr[j] == 0) then dp[j] would be left child and for right child => arr[i] / arr[j]
+// then total ways = dp[j] * dp[right child]
+// to effeciently find right child we keep a hashmap which stores indexes so we can get the index opf right child and calculate ways.
+   
+  public int numFactoredBinaryTrees(int[] arr) {
+        int mod = 1000000007;
+        Arrays.sort(arr);
+        int n = arr.length;
+        
+        long[] dp = new long[n];
+        Arrays.fill(dp, 1);
+        
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i=0; i<n; i++)
+            map.put(arr[i], i);
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<=i; j++){
+                if(arr[i] % arr[j] == 0){   // arr[j] is left child
+                    int right = arr[i]/arr[j];   // right child
+                    if(map.containsKey(right)){
+                        dp[i] += dp[j] * dp[map.get(right)];
+                    }
+                }
+            }
+        }
+        
+        long ans = 0;
+        for(long d : dp)
+            ans += d;
+        
+        return (int) (ans %mod);
+    }
