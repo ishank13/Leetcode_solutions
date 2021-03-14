@@ -1,0 +1,23 @@
+
+  public ListNode swapNodes(ListNode head, int k) {
+        
+        ListNode curr = head;
+        ListNode x = head;
+        ListNode y = head;
+        
+        while(k -- > 1){
+            x = x.next;
+            curr = curr.next;
+        }
+        
+        while(curr.next != null){
+            y = y.next;
+            curr = curr.next;
+        }
+        
+        int temp = x.val;
+        x.val = y.val;
+        y.val = temp;
+        
+        return head;
+    }
