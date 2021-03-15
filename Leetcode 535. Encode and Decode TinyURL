@@ -1,0 +1,17 @@
+//Approach -> key building approach. Just create unique key for each string(url) and put it into hashmap and we can retrieve back original string from hashmap.
+
+public class Codec {
+
+    HashMap<String, String> map = new HashMap<>();
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+        String key = "https://XYZ" + map.size();
+        map.put(key, longUrl);
+        return key;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        return map.get(shortUrl);
+    }
+}
