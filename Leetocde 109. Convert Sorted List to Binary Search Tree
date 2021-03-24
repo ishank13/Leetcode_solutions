@@ -19,7 +19,7 @@ public TreeNode sortedListToBST(ListNode head) {
         return sortedListToBST(count, head, map);
     }
     
-    int j = 0;
+    int j=0;
     public TreeNode sortedListToBST(int count, ListNode head, HashMap<Integer, ListNode> map){
         if(count <= 0) return null;
         
