@@ -1,0 +1,35 @@
+public TreeNode sortedListToBST(ListNode head) {
+        
+        ListNode curr = head;
+        int count = 0;
+        while(curr != null){
+            count++;
+            curr = curr.next;
+        }
+        
+        HashMap<Integer, ListNode> map = new HashMap<>();
+        curr = head;
+        int i = 0;
+        while(curr != null){
+            map.put(i, curr);
+            i++;
+            curr = curr.next;
+        }
+        
+        return sortedListToBST(count, head, map);
+    }
+    
+    int j = 0;
+    public TreeNode sortedListToBST(int count, ListNode head, HashMap<Integer, ListNode> map){
+        if(count <= 0) return null;
+        
+        TreeNode left = sortedListToBST(count / 2, head, map);
+        
+        TreeNode root = new TreeNode(map.get(j).val);
+        j++;
+        root.left = left;
+        
+        root.right = sortedListToBST(count - count/2 -1, head, map);
+        
+        return root;
+    }
