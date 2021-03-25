@@ -1,0 +1,64 @@
+//Approach -> Reverse the condition. start from both oceans and mark the places where we can reach and common places that can be reach from both oceans is the answer.
+// instead checking lower or equal heights, start from oceans and check for larger heights and mark them.
+    
+    static int[][] dir = {{-1,0}, {0,1}, {1,0}, {0,-1}};
+    public List<List<Integer>> pacificAtlantic(int[][] matrix) {
+        
+        if(matrix.length == 0 || matrix[0].length == 0)
+            return new ArrayList<>();
+        
+        int n = matrix.length;
+        int m = matrix[0].length;
+        
+        Queue<int[]> q1 = new LinkedList<>(); // pacific ocean
+        Queue<int[]> q2 = new LinkedList<>(); // atlantic ocean
+        
+        
+        for(int i=0; i<n; i++){
+            q1.add(new int[]{i, 0});
+            q2.add(new int[]{i, m-1});
+        }
+        
+        for(int i=0; i<m; i++){
+            q1.add(new int[]{0, i});
+            q2.add(new int[]{n-1, i});
+        }
+        
+        
+        boolean[][] isPacific = bfs(q1, matrix);
+        boolean[][] isAtlantic  = bfs(q2, matrix);
+        
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(isPacific[i][j] && isAtlantic[i][j])
+                    ans.add(List.of(i,j));
+            }
+        }
+        return ans;
+    }
+    
+    public static boolean[][] bfs(Queue<int[]> que, int[][] matrix){
+        int n = matrix.length;
+        int m = matrix[0].length;
+        boolean[][] isReachable = new boolean[matrix.length][matrix[0].length];
+        
+        while(que.size() != 0){
+            int[] res = que.poll();
+            
+            isReachable[res[0]][res[1]] = true;
+            
+            for(int d=0; d<dir.length; d++){
+                int r = res[0] + dir[d][0];
+                int c = res[1] + dir[d][1];
+                
+                if(r >= 0 && r<n && c>=0 && c<m && matrix[res[0]][res[1]] <= matrix[r][c]){  // check if place lies inside matrix and height is larger 
+                    if(isReachable[r][c]) continue;
+                    que.add(new int[]{r, c});
+                }
+            }
+        }
+        return isReachable;
+    }
