@@ -1,0 +1,31 @@
+//Approach -> run dfs and add prefixsum going down and subtracting from prefixsum while returning back from dfs so to get new path.    
+    
+    HashMap<Integer, Integer> map;
+    
+    public int pathSum(TreeNode root, int sum) {
+        map = new HashMap<>();
+        map.put(0, 1);
+        
+        int prefixSum = 0;
+        
+        return pathSum_(root, sum, prefixSum);
+    }
+    
+    public int pathSum_(TreeNode root, int sum, int prefixSum){
+        if(root == null) return 0;
+        
+        int ans = 0;
+        prefixSum += root.val;
+        
+        if(map.containsKey(prefixSum - sum)){
+            ans += map.get(prefixSum - sum);
+        }
+        map.put(prefixSum, map.getOrDefault(prefixSum, 0)+1);
+        
+        ans += pathSum_(root.left, sum, prefixSum);
+        ans += pathSum_(root.right, sum, prefixSum);
+        
+        map.put(prefixSum, map.get(prefixSum)-1);  //backtrack krte hue uss prefixSum k frequency ko hashmap se km krdo kyuki ab wo path bnane mai contribute nhi kr skta
+        
+        return ans;
+    }
